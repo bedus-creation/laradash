@@ -7,11 +7,11 @@
             "email": "tmgbedu@gmail.com"
         }
     ],
-    "minimum-stability": "dev",
+    "license": "MIT",
     "require": {},
     "autoload": {
         "psr-4": {
-            "Aammui\\Laradash\\":"packages/aammui/laradash/src"
+            "Aammui\\Laradash\\":"src"
         }
     }
 }
