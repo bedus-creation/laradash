@@ -1,0 +1,16 @@
+{
+    "name": "aammui/laradash",
+    "description": "Laravel beautiful admin panel",
+    "authors": [
+        {
+            "name": "Bedus Creation",
+            "email": "tmgbedu@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Aammui\\Laradash\\":"packages/aammui/laradash/src"
+        }
+    }
+}
