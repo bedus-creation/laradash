@@ -1,0 +1,98 @@
+
+#sidebar {
+    position: fixed;
+    left: 0;
+    width: 260px;
+    height: 700px;
+    color: #fff;
+    background-image: url('/img/sidebar-1.jpg');
+    background-size: cover;
+    z-index: 4;
+}
+
+
+#sidebar.active {
+    margin-left: -260px;
+}
+.sidebar-wrapper{
+    background-color: rgba($color: #000000, $alpha: 0.8);
+    height: 100%;
+}
+  
+#sidebar .logo {
+    padding: 12px 0 9px;
+    margin: 0;
+    position: relative;
+    z-index: 4;
+    display: block;
+}
+.logo:before, .sidebar .logo:before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 15px;
+    width: calc(100% - 30px);
+    height: 1px;
+    background-color: hsla(0,0%,100%,.3);
+}
+.sidebar .logo:before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 15px;
+    width: calc(100% - 30px);
+    height: 1px;
+}
+
+#sidebar .logo-img {
+    width: 34px;
+    display: inline-block;
+    height: 34px;
+    margin-left: 0;
+    margin-right: 10px;
+    background: #fff;
+    border-radius: 40px;
+    text-align: center;
+    line-height: 34px;
+}
+#sidebar .photo{
+    width: 34px;
+    height: 34px;
+    overflow: hidden;
+    border-radius: 50%;
+    z-index: 5;
+    border: 2px solid hsla(0,0%,100%,.3);
+}
+#sidebar .photo img{
+    width: 100%;
+}
+#sidebar .logo a.logo-normal {
+    display: block;
+    opacity: 1;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+}
+#sidebar .logo a.logo-mini {
+    float: left;
+    width: 30px;
+    text-align: center;
+    margin-left: 23px;
+    margin-right: 15px;
+    position: relative;
+}
+
+#sidebar .user .info a {
+    color: #fff;
+    padding: 8px 14px;
+    display: block;
+    white-space: nowrap;
+    line-height: 18px;
+}
+
+
+#sidebar .simple-text .caret {
+    right: 23px;
+}
+#sidebar #user .nav-item{
+    padding: 1px 8px;
+}
