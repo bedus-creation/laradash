@@ -21,6 +21,10 @@ class LaradashServiceProvider extends ServiceProvider
             __DIR__.'/resources/sass/' => resource_path('/sass/'),            
             __DIR__.'/resources/js/components' => resource_path('/js/components/'),
         ]);
+
+        $this->publishes([
+            __DIR__.'/public/img/' => public_path('img'),
+        ]);
     }
 
     /**
