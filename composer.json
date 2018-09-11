@@ -13,5 +13,12 @@
         "psr-4": {
             "Aammui\\Laradash\\":"src"
         }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Aammui\\Laradash\\LaradashServiceProvider"
+            ]
+        }
     }
 }
