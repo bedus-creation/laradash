@@ -23,9 +23,9 @@
             <div class="collapse" id="user">
                 <ul class="nav">
                     <li class="nav-item">
-                        <a href="/components/buttons" class="nav-link">
-                            <span class="sidebar-mini">B</span> 
-                            <span class="sidebar-normal">Buttons</span>
+                        <a href="/fileupload" class="nav-link">
+                            <span class="sidebar-mini">F</span> 
+                            <span class="sidebar-normal">Fileupload</span>
                         </a>
                     </li> 
                     <li class="nav-item">

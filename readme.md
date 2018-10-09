@@ -6,7 +6,7 @@ composer require aammui/laradash
 
 php artisan vendor:publish 
 
-&& select for provider=Aammui\Laradash\LaradashServiceProvider
+&& select for provider='Aammui\Laradash\LaradashServiceProvider'
 
 # Screenshot
 ![ScreenShot](https://raw.githubusercontent.com/bedus-creation/laradash/master/docs/screenshot.png)
@@ -32,4 +32,79 @@ npm install
 npm run dev
 
 ```
+
+# Description
+
+## Category
+
+Each Post may belongs to any numbers of category
+Each Category belongs to any numbers of post
+So this relationship will be many to many
+
+## Tag
+
+Each Post may belongs to any numbers of Tag
+Each Tag may belongs to any numbers of Post
+So this relationship will be many to many
+
+
+## Media
+
+We have use Image Intervention for image stuff
+Relationship is many to many
+
+### For Image
+
+`data=>[
+    'base_url'=>'https://youtube.com',
+    'user_id'=>'1231237612001',
+    'type'=>'image',
+    'in_json'=>[
+        'url'=>[
+            'small'=>'/image/100-1sjfAScqwesrtcmn.jpg',
+            'medium'=>'/image/300-1sjfAScqwesrtcmn.jpg',
+            'large'=>'/image/600-1sjfAScqwesrtcmn.jpg'
+        ]
+    ]
+]`
+
+### Data For Video
+
+We will store the Iframe that can be directly display into
+The Iframe.
+Time of length will be store in seconds
+
+`data=>[
+    'base_url'=>'https://youtube.com',
+    'user_id'=>'1231237612001',
+    'type'=>'video',
+    'in_json'=>[
+        'url'=>[
+            'small'=>'/embeded/ajsdhfjsfd',
+            'medium'=>'/embeded/ajsdhfjsfd',
+            'large'=>'/embeded/ajsdhfjsfd'
+        ],
+        'length'=>'12312313'
+    ]
+]`
+
+## Sitemap 
+
+Sitemap will be in /sitemap.xml
+
+
+## SocialAuthController
+
+
+## File Upload
+
+    `<div id="profile" class="edit" style="background-image:url('/')">
+        <div id="cover" class="btn btn-success" input-field="cover_image" data-value="21">Update Cover Image</div>
+    </div>`
+
+    `$('#cover').fileupload({
+		serverUploadUrl:'https://sahuba.com/medias',
+		serverAllFileUrl:'https://sahuba.com/medias'
+    });`
+
 
