@@ -33,7 +33,7 @@ class LaradashServiceProvider extends ServiceProvider
 
         $this->publishes([
             __DIR__.'/public/img/' => public_path('img'),
-            __DIR__.'/public/plugin/fileupload'=>public_path('plugin/fileupload')
+            __DIR__.'/public/plugin'=>public_path('plugin')
         ]);
     }
 

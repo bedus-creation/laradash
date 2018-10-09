@@ -55,7 +55,8 @@ Relationship is many to many
 
 ### For Image
 
-`data=>[
+```
+data=>[
     'base_url'=>'https://youtube.com',
     'user_id'=>'1231237612001',
     'type'=>'image',
@@ -66,7 +67,8 @@ Relationship is many to many
             'large'=>'/image/600-1sjfAScqwesrtcmn.jpg'
         ]
     ]
-]`
+]
+```
 
 ### Data For Video
 
@@ -74,7 +76,7 @@ We will store the Iframe that can be directly display into
 The Iframe.
 Time of length will be store in seconds
 
-`data=>[
+```data=>[
     'base_url'=>'https://youtube.com',
     'user_id'=>'1231237612001',
     'type'=>'video',
@@ -86,7 +88,7 @@ Time of length will be store in seconds
         ],
         'length'=>'12312313'
     ]
-]`
+]```
 
 ## Sitemap 
 
@@ -98,13 +100,71 @@ Sitemap will be in /sitemap.xml
 
 ## File Upload
 
-    `<div id="profile" class="edit" style="background-image:url('/')">
+    ```
+    <div id="profile" class="edit" style="background-image:url('/')">
         <div id="cover" class="btn btn-success" input-field="cover_image" data-value="21">Update Cover Image</div>
-    </div>`
+    </div>
+    ```
 
-    `$('#cover').fileupload({
+    ```
+    $('#cover').fileupload({
 		serverUploadUrl:'https://sahuba.com/medias',
 		serverAllFileUrl:'https://sahuba.com/medias'
-    });`
+    });
+    ```
 
 
+## select2
+
+```
+<select name="tags[]" id="tags-input" multiple class="form-control"></select>
+```
+
+### Tags should be in the following form
+
+```
+{
+    results: [
+        {
+            text: "Electronics and communication"
+        },{
+            text: "laravel"
+        },{
+            text: "php framework"
+        },{
+            text: "web devcelopment"
+        },{
+            text: "Computer Science"
+        }
+    ],
+    pagination: {
+        more: false
+    }
+}
+
+```
+
+
+```
+$('#tags-input').select2({
+    ajax:{
+        url: '/tags',
+        dataType: 'json',
+        delay:1000,
+        data: function (params) {
+            return {q: params.term}
+        },
+        processResults: function (data) {
+            return {
+                results: data.results.map(function(item){
+                    return {
+                        id: item.text,
+                        text: item.text
+                    };
+                })
+            }
+        }
+    },
+    tags:true
+});
+```

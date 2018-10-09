@@ -16,8 +16,8 @@
         <lastmod>20{{$item->updated_at->format('y-m-d')}}T{{$item->updated_at->format('h:i:s')}}+05:45</lastmod>
         @foreach($item->medias as $media)
         <image:image>
-            <image:loc>{{$media->link()}}</image:loc>
-            <image:caption>{{$item->name}}</image:caption>
+            <image:loc></image:loc>
+            <image:caption></image:caption>
         </image:image>
         @endforeach
     </url> 
