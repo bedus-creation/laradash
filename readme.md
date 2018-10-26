@@ -168,3 +168,15 @@ $('#tags-input').select2({
     tags:true
 });
 ```
+
+## web.php
+
+```
+
+Route::group(['prefix'=>'action'],function(){
+    Route::resource('posts','PostController');
+});
+
+
+
+```
