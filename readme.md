@@ -100,6 +100,8 @@ Sitemap will be in /sitemap.xml
 
 ```
 
+// HTML
+
 <div id="profile" class="edit" style="background-image:url('/')">
     <div id="cover" class="btn btn-success" input-field="cover_image" data-value="21">Update Cover Image</div>
 </div>
@@ -107,6 +109,8 @@ Sitemap will be in /sitemap.xml
 ```
 
 ```
+
+//Javascript
 
 $('#cover').fileupload({
     serverUploadUrl:'https://sahuba.com/medias',
