@@ -1,6 +1,6 @@
 # Install 
 
-composer require aammui/laradash
+composer require aammui/laradash:dev-master
 
 # publish the file
 
