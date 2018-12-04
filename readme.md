@@ -4,9 +4,7 @@ composer require aammui/laradash
 
 # publish the file
 
-php artisan vendor:publish 
-
-&& select for provider='Aammui\Laradash\LaradashServiceProvider'
+php artisan vendor:publish --provider=='Aammui\Laradash\LaradashServiceProvider'
 
 # Screenshot
 ![ScreenShot](https://raw.githubusercontent.com/bedus-creation/laradash/master/docs/screenshot.png)
@@ -32,8 +30,6 @@ npm install
 npm run dev
 
 ```
-
-# Description
 
 ## Category
 
@@ -88,7 +84,9 @@ Time of length will be store in seconds
         ],
         'length'=>'12312313'
     ]
-]```
+]
+
+```
 
 ## Sitemap 
 
