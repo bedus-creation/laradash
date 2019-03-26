@@ -1,0 +1,47 @@
+@each $name, $h in $height{
+    .tw-h-#{$name}{
+        height: $h !important; 
+    }
+};
+
+@each $name, $w in $width{
+    .tw-w-#{$name}{
+        width: $w !important; 
+    }
+};
+
+@each $name,$value in $colors{
+    .tw-border-#{$name}{
+        border: 1px solid $value !important;
+    }
+    .tw-bg-#{$name}{
+        background: $value !important;
+    }
+    .tw-text-#{$name}{
+        color: $value !important;
+    }
+}
+
+@each $name, $size in $textSizes{
+    .tw-text-#{$name}{
+        font-size: $size !important; 
+    }
+};
+
+@each $name, $weight in $fontWeights{
+    .tw-font-#{$name}{
+        font-weight: $weight !important; 
+    }
+};
+
+@each $name, $value in $padding{
+    .tw-p-#{$name}{
+        padding: $value !important; 
+    }
+};
+
+@each $name,$value in $fonts {
+    .tw-font-#{$name}{
+        font-family: $value !important; 
+    }
+}

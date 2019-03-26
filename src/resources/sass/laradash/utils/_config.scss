@@ -1,0 +1,47 @@
+// Fonts
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900");
+@import url("https://fonts.googleapis.com/css?family=Fira+Sans:300,400,500,700,900");
+
+$fonts:(
+    'roboto':"'Roboto', sans-serif",
+    'fira-code':"'Fira Sans', sans-serif"
+);
+$colors:(
+    'primary-dark':#0261a6,
+    'primary':#0161a6,
+    'primary-light':#0261A6,
+    'primary-lighter':#0261A6,
+
+    'action':#FC8B07
+);
+
+$height:(1:1rem,4:4rem,6:6rem,10:10rem,12:12rem,16:16rem);
+$width: (1:1rem,4:4rem,6:6rem,10:10rem,12:12rem,16:16rem);
+
+$textSizes: (
+    'xs': '.75rem',     // 12px
+    'sm': '.875rem',    // 14px
+    'base': '1rem',     // 16px
+    'lg': '1.125rem',   // 18px
+    'xl': 1.25rem,    // 20px
+    '2xl': 1.5rem,    // 24px
+    '3xl': 1.875rem,  // 30px
+    '4xl': 2.25rem,   // 36px
+    '5xl': 3rem,      // 48px
+);
+
+$fontWeights: (
+    'hairline': 100,
+    'thin': 200,
+    'light': 300,
+    'normal': 400,
+    'medium': 500,
+    'semibold': 600,
+    'bold': 700,
+    'extrabold': 800,
+    'black': 900,
+);
+
+$padding:(
+    '1':1rem
+);

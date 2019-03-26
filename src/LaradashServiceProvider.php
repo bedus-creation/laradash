@@ -13,27 +13,26 @@ class LaradashServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->loadRoutesFrom(__DIR__.'/routes.php');
-        $this->loadViewsFrom(__DIR__.'/resources/views/welcome','laradash');
+        $this->loadRoutesFrom(__DIR__ . '/routes.php');
+        $this->loadViewsFrom(__DIR__ . '/resources/views/welcome', 'laradash');
 
         $this->publishes([
-            __DIR__.'/config/laradash.php' => config_path('laradash.php'),
-            __DIR__.'/database' => database_path('migrations'),
-            __DIR__.'/database' => database_path('migrations'),
-            __DIR__.'/resources/views/' => resource_path('/views/'),            
-            __DIR__.'/resources/sass/' => resource_path('/sass/'),            
-            __DIR__.'/resources/js/components' => resource_path('/js/components/'),
+            __DIR__ . '/config/laradash.php' => config_path('laradash.php'),
+            __DIR__ . '/database' => database_path('migrations'),
+            __DIR__ . '/database' => database_path('migrations'),
+            __DIR__ . '/resources/views/' => resource_path('/views/'),
+            __DIR__ . '/resources/sass/' => resource_path('/sass/'),
+            __DIR__ . '/resources/js/components' => resource_path('/js/components/'),
         ]);
 
         $this->publishes([
-            __DIR__.'/Model' => app_path('Model'),
-            __DIR__.'/Http/Controllers' => app_path('Http/Controllers/'),
-            __DIR__.'/Http/Resources' => app_path('Http/Resources/'),
+            __DIR__ . '/Model' => app_path('Model'),
+            __DIR__ . '/Http/Controllers' => app_path('Http/Controllers/'),
+            __DIR__ . '/Http/Resources' => app_path('Http/Resources/'),
         ]);
 
         $this->publishes([
-            __DIR__.'/public/img/' => public_path('img'),
-            __DIR__.'/public/plugin'=>public_path('plugin')
+            __DIR__ . '/public/laradash' => public_path('laradash'),
         ]);
     }
 
@@ -43,10 +42,10 @@ class LaradashServiceProvider extends ServiceProvider
      * @return void
      */
     public function register()
-    {        
+    {
         $this->mergeConfigFrom(
-            __DIR__.'/config/services.php','services'
+            __DIR__ . '/config/services.php',
+            'services'
         );
-
     }
 }

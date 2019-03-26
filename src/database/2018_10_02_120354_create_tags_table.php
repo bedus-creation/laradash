@@ -18,6 +18,11 @@ class CreateTagsTable extends Migration
             $table->timestamps();
             $table->string('name')->unique();
         });
+
+        Schema::create('tag_taggable', function (Blueprint $table) {
+            $table->unsignedInteger('tag_id');
+            $table->morphs('taggable');
+        });
     }
 
     /**

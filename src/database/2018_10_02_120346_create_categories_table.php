@@ -18,6 +18,11 @@ class CreateCategoriesTable extends Migration
             $table->timestamps();
             $table->string('name')->unique();
         });
+
+        Schema::create('category_taggable', function (Blueprint $table) {
+            $table->unsignedInteger('category_id');
+            $table->morphs('taggable');
+        });
     }
 
     /**
@@ -28,5 +33,6 @@ class CreateCategoriesTable extends Migration
     public function down()
     {
         Schema::dropIfExists('categories');
+        Schema::dropIfExists('category_taggable');
     }
 }

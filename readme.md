@@ -1,10 +1,14 @@
 # Install 
 
+```
 composer require aammui/laradash:dev-master
+```
+Visit (http://locahost:8000)/laradash
 
-# publish the file
-
-php artisan vendor:publish --provider=='Aammui\Laradash\LaradashServiceProvider'
+# publish the Config file
+```
+php artisan vendor:publish --provider="Aammui\Laradash\LaradashServiceProvider"
+```
 
 # Screenshot
 ![ScreenShot](https://raw.githubusercontent.com/bedus-creation/laradash/master/docs/screenshot.png)

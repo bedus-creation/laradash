@@ -16,17 +16,10 @@ class CreatePostsTable extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
+            $table->string('slug');
             $table->string('title');
             $table->longText('body');
             $table->softDeletes();
-        });
-        Schema::create('post_tag', function (Blueprint $table) {
-            $table->unsignedInteger('post_id');
-            $table->unsignedInteger('tag_id');
-        });
-        Schema::create('post_category', function (Blueprint $table) {
-            $table->unsignedInteger('category_id');
-            $table->unsignedInteger('post_id');
         });
     }
 
