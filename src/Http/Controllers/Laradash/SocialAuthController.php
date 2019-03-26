@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Laradash;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -36,7 +36,7 @@ class SocialAuthController extends Controller
      */
     public function redirectToProvider($driver)
     {
-        if( ! $this->isProviderAllowed($driver) ) {
+        if (!$this->isProviderAllowed($driver)) {
             return $this->sendFailedResponse("{$driver} is not currently supported");
         }
 
@@ -54,7 +54,7 @@ class SocialAuthController extends Controller
      * @param $driver
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function handleProviderCallback( $driver )
+    public function handleProviderCallback($driver)
     {
         try {
             $user = Socialite::driver($driver)->user();
@@ -63,8 +63,8 @@ class SocialAuthController extends Controller
         }
 
         // check for email in returned user
-        if(empty( $user->email )){
-            $user->email=$user->id.'@aammui.com';
+        if (empty($user->email)) {
+            $user->email = $user->id . '@aammui.com';
         }
 
         return $this->loginOrCreateAccount($user, $driver);
@@ -98,7 +98,7 @@ class SocialAuthController extends Controller
         $user = User::where('email', $providerUser->getEmail())->first();
 
         // if user already found
-        if( $user ) {
+        if ($user) {
             // update the avatar and provider that might have changed
             $user->update([
                 'provider' => $driver,
@@ -134,5 +134,4 @@ class SocialAuthController extends Controller
     {
         return in_array($driver, $this->providers) && config()->has("services.{$driver}");
     }
-    
 }

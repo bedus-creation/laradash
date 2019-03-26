@@ -178,6 +178,13 @@ $('#tags-input').select2({
 });
 ```
 
+## Add Route to Routes List
+```
+use Aammui\Laradash\Facade\Laradash;
+
+Laradash::route();
+```
+
 ## Routes List
 ```
 php artisan route:list

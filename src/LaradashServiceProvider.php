@@ -3,6 +3,7 @@
 namespace Aammui\Laradash;
 
 use Illuminate\Support\ServiceProvider;
+use Aammui\Laradash\Laradash;
 
 class LaradashServiceProvider extends ServiceProvider
 {
@@ -13,8 +14,6 @@ class LaradashServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->loadRoutesFrom(__DIR__ . '/routes/routes.php');
-
         $this->publishes([
             __DIR__ . '/config/laradash.php' => config_path('laradash.php'),
             __DIR__ . '/database' => database_path('migrations'),
@@ -42,6 +41,10 @@ class LaradashServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->app->bind('Laradash', function () {
+            return new Laradash();
+        });
+
         $this->mergeConfigFrom(
             __DIR__ . '/config/services.php',
             'services'
