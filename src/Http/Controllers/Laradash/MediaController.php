@@ -2,7 +2,7 @@
 namespace App\Http\Controllers\Laradash;
 
 use App\Http\Controllers\Controller;
-use App\Model\Media;
+use App\Models\Media;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Resources\MediaResources;

@@ -7,5 +7,6 @@ Route::group(["namespace" => "App\Http\Controllers"], function () {
         Route::resource('posts', 'PostController');
         Route::resource('categories', 'CategoryController');
         Route::resource('tags', 'TagController');
+        Route::resource('medias', 'MediaController');
     });
 });
