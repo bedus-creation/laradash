@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 
 class CommandController extends Controller
 {
-    public static function __invoke(Request $request, $command)
+    public function __invoke(Request $request, $command)
     {
         $commands = explode(" ", $command);
         $command = "";
@@ -28,4 +28,3 @@ class CommandController extends Controller
         }
     }
 }
-
