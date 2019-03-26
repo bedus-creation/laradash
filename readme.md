@@ -3,7 +3,6 @@
 ```
 composer require aammui/laradash:dev-master
 ```
-Visit (http://locahost:8000)/laradash
 
 # publish the Config file
 ```
@@ -179,14 +178,7 @@ $('#tags-input').select2({
 });
 ```
 
-## web.php
-
+## Routes List
 ```
-
-Route::group(['prefix'=>'action'],function(){
-    Route::resource('posts','PostController');
-});
-
-
-
+php artisan route:list
 ```

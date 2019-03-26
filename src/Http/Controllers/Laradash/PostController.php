@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Laradash;
 
-use App\Post;
+use App\Models\Laradash\Post;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+
 
 class PostController extends Controller
 {

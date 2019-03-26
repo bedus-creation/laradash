@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Controllers\Utils;
+namespace App\Http\Controllers\Laradash;
 
 use App\Http\Controllers\Controller;
 use App\Model\Media;
@@ -38,42 +38,41 @@ class MediaController extends Controller
      */
     public function store(Request $request)
     {
-        if ( $fileUid = $request->file->store('', 'public') ) {
+        if ($fileUid = $request->file->store('', 'public')) {
 
             $img = Image::make($request->file);
 
-            $big=$img->resize(600, null, function ($constraint) {
+            $big = $img->resize(600, null, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save('storage/upload/600-'.$fileUid);
+            })->save('storage/upload/600-' . $fileUid);
 
-            
-            $medium=$img->resize(300, null, function ($constraint) {
+
+            $medium = $img->resize(300, null, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save('storage/upload/300-'.$fileUid);
-            
-            $small=$img->resize(100, null, function ($constraint) {
+            })->save('storage/upload/300-' . $fileUid);
+
+            $small = $img->resize(100, null, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save('storage/upload/100-'.$fileUid);
+            })->save('storage/upload/100-' . $fileUid);
 
             return Media::create([
-                'type'=>'image',
-                'base_url'=>url('/'),
-                'in_json'=>json_encode([
-                    'sizes'=>[
-                        'small'=>getimagesize($request->file),
-                        'medium'=>getimagesize($request->file),
-                        'big'=>getimagesize($request->file),
+                'type' => 'image',
+                'base_url' => url('/'),
+                'in_json' => json_encode([
+                    'sizes' => [
+                        'small' => getimagesize($request->file),
+                        'medium' => getimagesize($request->file),
+                        'big' => getimagesize($request->file),
                     ],
-                    'images'=>[
-                        'small'=>Storage::url('upload/100-'.$fileUid),
-                        'medium'=>Storage::url('upload/300-'.$fileUid),
-                        'big'=>Storage::url('upload/600-'.$fileUid),
+                    'images' => [
+                        'small' => Storage::url('upload/100-' . $fileUid),
+                        'medium' => Storage::url('upload/300-' . $fileUid),
+                        'big' => Storage::url('upload/600-' . $fileUid),
                     ]
                 ]),
             ]);
-
         }
-    
+
         return response(['msg' => 'Unable to upload your file.'], 400);
     }
 

@@ -1,13 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\Utils;
+namespace App\Http\Controllers\Laradash;
 
 use App\Http\Controllers\Controller;
-use App\Model\Category;
+use App\Models\Laradash\Category;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+    protected $repository;
+
+    public function __construct(Category $category)
+    {
+        $this->repository = $category;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +21,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        return view('laradash.action.categories.index');
     }
 
     /**

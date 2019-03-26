@@ -14,6 +14,7 @@ class TestCase extends \Orchestra\Testbench\TestCase
     public function setUp()
     {
         parent::setUp();
+        $this->withoutExceptionHandling();
         $this->artisan('migrate', ['--database' => 'testbench']);
         $this->loadMigrationsFrom([
             '--database' => 'testbench',
@@ -34,6 +35,12 @@ class TestCase extends \Orchestra\Testbench\TestCase
             'database' => ':memory:',
             'prefix'   => '',
         ]);
+
+        // Adding Config
+        $app['config']->set('laradash', [
+            'base_url' => 'admin'
+        ]);
+
         // Setup the right User class (using stub)
         $app['config']->set('auth.providers.users.model', User::class);
     }

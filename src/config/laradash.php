@@ -1,5 +1,6 @@
 <?php
 
 return [
-    "model"=>"Post"
+    "model" => "Post",
+    "base_route" => "admin"
 ];

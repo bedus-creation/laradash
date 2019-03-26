@@ -1,9 +1,9 @@
 @extends('theme.app')
 
 @section('head')
-<link rel="stylesheet" href="/plugin/fileupload/fileupload-1.1.css">
-<link rel="stylesheet" href="/plugin/select2/select2.css">
-<link rel="stylesheet" href="/plugin/select2/typeahead.css">
+<link rel="stylesheet" href="{{url('/laradash/plugin/fileupload/fileupload-1.1.css')}}">
+<link rel="stylesheet" href="{{url('/laradash/plugin/select2/select2.css')}}">
+<link rel="stylesheet" href="{{url('/laradash/plugin/select2/typeahead.css')}}">
 @endsection
 
 

@@ -1,21 +1,23 @@
 <?php
 
-namespace App\Http\Controllers\Utils;
+namespace App\Http\Controllers\Laradash;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\Controller;
+
 class CommandController extends Controller
 {
     public static function __invoke(Request $request, $command)
     {
-        $commands=explode(" ", $command);
-        $command="";
-        $option=array();
+        $commands = explode(" ", $command);
+        $command = "";
+        $option = array();
         foreach ($commands as $key => $value) {
-            if ($key==0) {
-                $command=$value;
+            if ($key == 0) {
+                $command = $value;
             } else {
-                $option[]=	$value;
+                $option[] =    $value;
             }
         }
         try {
@@ -26,3 +28,4 @@ class CommandController extends Controller
         }
     }
 }
+
