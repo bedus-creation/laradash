@@ -7,5 +7,5 @@ Route::group(['prefix' => config('laradash.base_route'), "namespace" => "Laradas
     Route::resource('posts', 'PostController');
     Route::resource('categories', 'CategoryController');
     Route::resource('tags', 'TagController');
-    Route::resource('medias', 'MediaController');
+    Route::resource('medias', 'MediaController')->only(['index', 'store']);
 });

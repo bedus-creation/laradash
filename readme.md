@@ -10,7 +10,7 @@ composer require aammui/laradash:dev-master
 php artisan vendor:publish --provider="Aammui\Laradash\LaradashServiceProvider" --force
 ```
 
-## Add Route to Routes List
+## Add Route to Routes List in web.php
 ```
 use Aammui\Laradash\Facade\Laradash;
 
@@ -22,7 +22,10 @@ Laradash::route();
 php artisan route:list
 ```
 
-
+## Add Resources to webpack.mix.js
+```
+mix.sass('resources/sass/laradash/laradash.scss', 'public/laradash/css');
+```
 
 # Inside Project
 

@@ -2,10 +2,10 @@
 namespace App\Http\Controllers\Laradash;
 
 use App\Http\Controllers\Controller;
-use App\Models\Media;
+use App\Models\Laradash\Media;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use App\Http\Resources\MediaResources;
+use App\Http\Resources\MediaResource;
 use Intervention\Image\ImageManagerStatic as Image;
 
 class MediaController extends Controller
@@ -17,7 +17,8 @@ class MediaController extends Controller
      */
     public function index()
     {
-        //
+        $data = MediaResource::Collection(Media::orderBy('id', 'desc')->limit(8)->get());
+        return response()->json(['data' => $data]);
     }
 
     /**
@@ -46,7 +47,6 @@ class MediaController extends Controller
                 $constraint->aspectRatio();
             })->save('storage/upload/600-' . $fileUid);
 
-
             $medium = $img->resize(300, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save('storage/upload/300-' . $fileUid);
@@ -55,7 +55,8 @@ class MediaController extends Controller
                 $constraint->aspectRatio();
             })->save('storage/upload/100-' . $fileUid);
 
-            return Media::create([
+            $media = Media::create([
+                'user_id' => auth()->user()->id,
                 'type' => 'image',
                 'base_url' => url('/'),
                 'in_json' => json_encode([
@@ -64,13 +65,17 @@ class MediaController extends Controller
                         'medium' => getimagesize($request->file),
                         'big' => getimagesize($request->file),
                     ],
-                    'images' => [
+                    'url' => [
                         'small' => Storage::url('upload/100-' . $fileUid),
                         'medium' => Storage::url('upload/300-' . $fileUid),
                         'big' => Storage::url('upload/600-' . $fileUid),
                     ]
                 ]),
             ]);
+            return [
+                'id' => $media->id,
+                'url' => $media->link('big')
+            ];
         }
 
         return response(['msg' => 'Unable to upload your file.'], 400);

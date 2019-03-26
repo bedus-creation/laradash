@@ -19,8 +19,8 @@
 		},
 		update: function (id, image) {
 			var data = model.getAll();
-			data[id].ImgSrc = image.base_url+JSON.parse(image.in_json).url.small;
-			data[id].ImgId=image.id;
+			data[id].ImgSrc = image.url;
+			data[id].ImgId = image.id;
 			data[id].type = "local";
 			data[id].status = "success";
 			localStorage.files = JSON.stringify(data);
@@ -31,15 +31,15 @@
 			});
 			return data[0];
 		},
-		removeFile(id){
+		removeFile(id) {
 			var data = model.getAll();
 			data[id].status = "error";
 			localStorage.files = JSON.stringify(data);
 			console.log(model.getAll());
 			view.localInit('local');
 		},
-		validateFile(file){
-			if(file.size/1024/1024 > 1){
+		validateFile(file) {
+			if (file.size / 1024 / 1024 > 1) {
 				throw new Error("File size must be less than 1 MB");
 			};
 		}
@@ -52,14 +52,9 @@
 		setSelected: function (id, clicked) {
 			// TODO upgrade this performance 
 			// COntains bug on clicked.inputId
-			console.log(clicked);
-			
 			$('input[name=' + clicked.input + ']').val(model.getSelected(id).ImgId);
-			
-			// $('#' + clicked.imageId).html('<img src="' + model.getSelected(id).ImgSrc + '" class="img-fluid">');
-			// 
-			$('#' + clicked.id).parent().css({ 'background':'url('+model.getSelected(id).ImgSrc+') no-repeat'});
-			$('#' + clicked.imageId).html('');
+
+			$('#' + clicked.imageId).html('<img src="' + model.getSelected(id).ImgSrc + '" class="img-fluid w-100">');			// 
 			return true;
 		},
 
@@ -72,17 +67,17 @@
 		 * @param src
 		 * @param env 
 		 */
-		 addFile: function (data, url, src, env) {
-		 	var tempId = currentId;
-		 	model.add({
-		 		ImgSrc: src,
-		 		id: tempId,
-		 		type: 'local',
-		 		status: 'uploading'
-		 	});
-		 	view.bufferRender('local');
-		 	this.sendToServer(data, url, env, tempId);
-		 },
+		addFile: function (data, url, src, env) {
+			var tempId = currentId;
+			model.add({
+				ImgSrc: src,
+				id: tempId,
+				type: 'local',
+				status: 'uploading'
+			});
+			view.bufferRender('local');
+			this.sendToServer(data, url, env, tempId);
+		},
 
 
 		/**
@@ -90,13 +85,13 @@
 		 * 
 		 * @returns array of  data
 		 */
-		 getServerFileFromModel: function () {
-		 	var data = model.getAll().filter(function (item) {
-		 		return item.type == 'server';
-		 	});
-		 	console.log(data);
-		 	return data;
-		 },
+		getServerFileFromModel: function () {
+			var data = model.getAll().filter(function (item) {
+				return item.type == 'server';
+			});
+			console.log(data);
+			return data;
+		},
 
 
 		/**
@@ -104,18 +99,18 @@
 		 * 
 		 * @returns void
 		 */
-		 addMultipleFiles: function (data, env) {
-		 	data.data.forEach(function (item) {
-		 		model.add({
+		addMultipleFiles: function (data, env) {
+			data.data.forEach(function (item) {
+				model.add({
 					ImgSrc: item.url,
-					ImgId:item.id,
-		 			id: currentId,
-		 			type: 'server',
-		 			status: 'success'
-		 		});
+					ImgId: item.id,
+					id: currentId,
+					type: 'server',
+					status: 'success'
+				});
 			});
 			view.render();
-		 },
+		},
 
 		/**
 		 * 
@@ -123,21 +118,21 @@
 		 * @param {*} env 
 		 * @param {*} currentId 
 		 */
-		 updateSrc(src, env, currentId) {
-		 	model.update(currentId, src);
-		 	console.log(model.getSelected(currentId));
-		 	view.bufferRender('local');
-		 },
+		updateSrc(src, env, currentId) {
+			model.update(currentId, src);
+			console.log(model.getSelected(currentId));
+			view.bufferRender('local');
+		},
 
 
-		 sendToServer: function (data, url, env, currentId) {
-		 	$.ajax({
-		 		headers: {
-		 			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-		 		},
-		 		url: url,
-		 		type: 'POST',
-		 		data: data,
+		sendToServer: function (data, url, env, currentId) {
+			$.ajax({
+				headers: {
+					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+				},
+				url: url,
+				type: 'POST',
+				data: data,
 				processData: false, // Don't process the files
 				contentType: false, // Set content type to false as jQuery will tell the server its a query string request
 				uploadProgress: function (event, position, total, percentComplete) {
@@ -159,50 +154,50 @@
 					}
 				}
 			});
-		 },
-		 getAllFilesFromServer(url, env) {
-		 	$.ajax({
-		 		headers: {
-		 			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-		 		},
-		 		url: url,
-		 		type: 'GET',
-		 		success: function (data, textStatus, jqXHR) {
-		 			controller.addMultipleFiles(data, env);
-		 		},
-		 		error: function (jqXHR, textStatus, errorThrown) {
-		 			alert(errorThrown + textStatus);
-		 			if (jqXHR.responseText) {
-		 				errors = JSON.parse(jqXHR.responseText).errors
-		 				alert('Error uploading image: ' + errors.join(", ") + '. Make sure the file is an image and has extension jpg/jpeg/png.');
-		 			}
-		 		}
-		 	});
-		 },
-		 removeFile: function (currentId) {
+		},
+		getAllFilesFromServer(url, env) {
+			$.ajax({
+				headers: {
+					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+				},
+				url: url,
+				type: 'GET',
+				success: function (data, textStatus, jqXHR) {
+					controller.addMultipleFiles(data, env);
+				},
+				error: function (jqXHR, textStatus, errorThrown) {
+					alert(errorThrown + textStatus);
+					if (jqXHR.responseText) {
+						errors = JSON.parse(jqXHR.responseText).errors
+						alert('Error uploading image: ' + errors.join(", ") + '. Make sure the file is an image and has extension jpg/jpeg/png.');
+					}
+				}
+			});
+		},
+		removeFile: function (currentId) {
 			model.removeFile(currentId);
-		 },
-		 getAllFiles: function (type) {
-		 	var data = model.getAll().filter(function (item) {
-		 		return item.type == type;
-		 	});
-		 	console.log(data);
-		 	return data;
-		 }
+		},
+		getAllFiles: function (type) {
+			var data = model.getAll().filter(function (item) {
+				return item.type == type;
+			});
+			console.log(data);
+			return data;
 		}
-		var view = {
-			init: function (env) {
-				var temp = this;
-				temp.env = env;
-				var $div = $('#' + env.id);
-				var inputAppend = "<input name='" + $div.attr('input-field') + "' type='hidden' value='"+env.value+"'>";
-				$div.parent().prepend(inputAppend);
-				inputAppend="<span id='"+env.id+"-image'>";
-				
-				inputAppend+="</span>";
+	}
+	var view = {
+		init: function (env) {
+			var temp = this;
+			temp.env = env;
+			var $div = $('#' + env.id);
+			var inputAppend = "<input name='" + $div.attr('input-field') + "' type='hidden' value='" + env.value + "'>";
+			$div.parent().prepend(inputAppend);
+			inputAppend = "<span id='" + env.id + "-image'>";
 
-				$div.parent().append(inputAppend);
-				
+			inputAppend += "</span>";
+
+			$div.parent().append(inputAppend);
+
 			var $result = $('#' + env.imageId);
 			$div.click(function () {
 				controller.getAllFilesFromServer(env.serverAllFileUrl, env);
@@ -210,26 +205,26 @@
 				temp.env.input = $(this).attr('input-field');
 				temp.env.imageId = $(this).attr('id') + '-image';
 				var raw = '<div class="overlay">' +
-				'</div><div class="hero">' +
-				'<ul class="nav nav-tabs" id="myTab" role="tablist">' +
-				'<li class="nav-item">' +
-				'<a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Upload From your device</a>' +
-				'</li>' +
-				'<li class="nav-item">' +
-				'<a class="nav-link" id="astd-tab" data-toggle="tab" href="#astd" role="tab" aria-controls="astd" aria-selected="false">Browse among uploaded</a>' +
-				'</li>' +
-				'<li class="nav-item">' +
-				'<a id="close-image-upload" class="nav-link float-right" href="#">Close &times;</a>' +
-				'</li>' +
-				'</ul>' +
-				'<div class="tab-content mt-2" id="myTabContent">' +
-				'<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">' +
-				'<div id="bedusUpload" class="btn btn-primary">Upload File</div>' +
-				'<div id="buffer" class="row"></div>' +
-				'</div>' +
-				'<div class="tab-pane fade" id="astd" role="tabpanel" aria-labelledby="astd-tab"></div>' +
-				'</div>' +
-				'</div>';
+					'</div><div class="hero">' +
+					'<ul class="nav nav-tabs" id="myTab" role="tablist">' +
+					'<li class="nav-item">' +
+					'<a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Upload From your device</a>' +
+					'</li>' +
+					'<li class="nav-item">' +
+					'<a class="nav-link" id="astd-tab" data-toggle="tab" href="#astd" role="tab" aria-controls="astd" aria-selected="false">Browse among uploaded</a>' +
+					'</li>' +
+					'<li class="nav-item">' +
+					'<a id="close-image-upload" class="nav-link float-right" href="#">Close &times;</a>' +
+					'</li>' +
+					'</ul>' +
+					'<div class="tab-content mt-2" id="myTabContent">' +
+					'<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">' +
+					'<div id="bedusUpload" class="btn btn-primary">Upload File</div>' +
+					'<div id="buffer" class="row"></div>' +
+					'</div>' +
+					'<div class="tab-pane fade" id="astd" role="tabpanel" aria-labelledby="astd-tab"></div>' +
+					'</div>' +
+					'</div>';
 				$result.prepend(raw);
 				view.localInit('local');
 				view.render();
@@ -240,8 +235,8 @@
 				input.setAttribute('accept', 'image/*');
 				input.onchange = function () {
 					var file = this.files[0];
-					
-					try{
+
+					try {
 						model.validateFile(file);
 						let form = new FormData();
 						form.append('file', file);
@@ -250,8 +245,8 @@
 						reader.onload = function () {
 							controller.addFile(form, url, reader.result, env);
 						};
-						reader.readAsDataURL(file);	
-					}catch(exc){
+						reader.readAsDataURL(file);
+					} catch (exc) {
 						alert(exc);
 					}
 
@@ -272,13 +267,13 @@
 		/**
 		 * Initialization of all local files to 
 		 */
-		 localInit: function (type = 'local') {
+		localInit: function (type = 'local') {
 
 			var container = $('#buffer');
 			container.html('');
-		 	
-		 	controller.getAllFiles(type).forEach(function (file) {
-				if(file.status=="success"){
+
+			controller.getAllFiles(type).forEach(function (file) {
+				if (file.status == "success") {
 					var raw = "";
 					raw += '<div class="col-md-3 astd mt-4 mb-4" id="' + file.id + '">';
 					raw += '<div class="temp-img" id="myProgress" style="background:url(' + file.ImgSrc + ') no-repeat;">';
@@ -287,93 +282,93 @@
 					raw += "</div>";
 					container.prepend(raw);
 				}
-		 	});
+			});
 
-		 },
+		},
 
 
 		/**
 		 * This function adds individual item to the viewport
 		 * @param string type
 		 */
-		 bufferRender: function (type) {
-		 	var container = $('#buffer');
-		 	
-		 	controller.getAllFiles(type).forEach(function (file) {
-		 		console.log(file);
-		 		if (file.status == "uploading") {
-					var raw="";
-		 			raw = '<div class="col-md-3 astd mt-4 mb-4" id="' + file.id + '">';
-		 			raw += '<div class="temp-img" id="myProgress" style="background:url(' + file.ImgSrc + ') no-repeat;">';
-		 			raw += '<div id="' + file.id + '-i" class="local"><i class="icon-spinner2 spinner"></i></div>';
-		 			raw += '</div>';
+		bufferRender: function (type) {
+			var container = $('#buffer');
+
+			controller.getAllFiles(type).forEach(function (file) {
+				console.log(file);
+				if (file.status == "uploading") {
+					var raw = "";
+					raw = '<div class="col-md-3 astd mt-4 mb-4" id="' + file.id + '">';
+					raw += '<div class="temp-img" id="myProgress" style="background:url(' + file.ImgSrc + ') no-repeat;">';
+					raw += '<div id="' + file.id + '-i" class="local"><i class="icon-spinner2 spinner"></i></div>';
+					raw += '</div>';
 					raw += "</div>";
 					container.prepend(raw);
-		 		} else if (file.status == "success") {
-		 			$('#' + file.id + '-i > i').css({ 'display': 'none' });
+				} else if (file.status == "success") {
+					$('#' + file.id + '-i > i').css({ 'display': 'none' });
 					$('#' + file.id + '-i').html('<div>&nbsp;</div>');
 					$('#' + file.id + '-i').append('<div class="setB">set Image</div>');
-		 		}
-		 	});
+				}
+			});
 
-		 	
-		 },
+
+		},
 
 		/**
 		 * Render all the files which are already uploaded
 		 */
-		 render: function () {
-		 	var container = $('#astd');
-		 	var raw = '<div class="container"><div class="row">' +
-		 	'<div class="col-md-12"><div class="row">';
-		 	controller.getServerFileFromModel().forEach(function (file) {
-		 		raw += '<div class="col-md-3 astd mt-4 mb-4" id="' + file.id + '">' ;
-		 		raw += '<div class="temp-img" id="myProgress" style="background:url(' + file.ImgSrc + ') no-repeat;">';
+		render: function () {
+			var container = $('#astd');
+			var raw = '<div class="container"><div class="row">' +
+				'<div class="col-md-12"><div class="row">';
+			controller.getServerFileFromModel().forEach(function (file) {
+				raw += '<div class="col-md-3 astd mt-4 mb-4" id="' + file.id + '">';
+				raw += '<div class="temp-img" id="myProgress" style="background:url(' + file.ImgSrc + ') no-repeat;">';
 				raw += '<div id="' + file.id + '-i" class="local"><div>&nbsp;</div><div class="setB">set Image</div></div>';
 				raw += '</div>';
 				raw += "</div>";
-		 	});
-		 	raw += '</div></div></div></div>';
-		 	container.append(raw);
-		 },
-
-
-		 lazyLoad: function () {
-		 	[].forEach.call(document.querySelectorAll('img[data-src]'), function (img) {
-		 		if (view.isInViewport(img)) {
-		 			img.setAttribute('src', img.getAttribute('data-src'));
-		 			img.onload = function () {
-		 				img.removeAttribute('data-src');
-		 			};
-		 		}
-		 	});
-		 },
-		 isInViewport: function (el) {
-		 	var rect = el.getBoundingClientRect();
-		 	return (
-		 		rect.bottom >= 0 &&
-		 		rect.right >= 0 &&
-		 		rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
-		 		rect.left <= (window.innerWidth || document.documentElement.clientWidth)
-		 		);
-		 },
-		 addImageItem: function (hing, src) {
-		 	var raw = '<img src="' + src + '">';
-		 	hing.append(raw);
-		 }
-		}
-		$.fn.fileupload = function (options) {
-			$this = $(this);
-			return this.each(function () {
-				env = $.extend({
-					baseUrl: "/",
-					id: $this.attr('id'),
-					value:(typeof $this.attr('data-value') == typeof undefined) ? '':$this.attr('data-value'),
-					imageId: $this.attr('id') + '-image',
-					serverUploadUrl: '/',
-					serverAllFileUrl: ''
-				}, options);
-				controller.init($this.attr('id'), env);
 			});
-		};
-	}(jQuery));
+			raw += '</div></div></div></div>';
+			container.append(raw);
+		},
+
+
+		lazyLoad: function () {
+			[].forEach.call(document.querySelectorAll('img[data-src]'), function (img) {
+				if (view.isInViewport(img)) {
+					img.setAttribute('src', img.getAttribute('data-src'));
+					img.onload = function () {
+						img.removeAttribute('data-src');
+					};
+				}
+			});
+		},
+		isInViewport: function (el) {
+			var rect = el.getBoundingClientRect();
+			return (
+				rect.bottom >= 0 &&
+				rect.right >= 0 &&
+				rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
+				rect.left <= (window.innerWidth || document.documentElement.clientWidth)
+			);
+		},
+		addImageItem: function (hing, src) {
+			var raw = '<img src="' + src + '">';
+			hing.append(raw);
+		}
+	}
+	$.fn.fileupload = function (options) {
+		$this = $(this);
+		return this.each(function () {
+			env = $.extend({
+				baseUrl: "/",
+				id: $this.attr('id'),
+				value: (typeof $this.attr('data-value') == typeof undefined) ? '' : $this.attr('data-value'),
+				imageId: $this.attr('id') + '-image',
+				serverUploadUrl: '/',
+				serverAllFileUrl: ''
+			}, options);
+			controller.init($this.attr('id'), env);
+		});
+	};
+}(jQuery));

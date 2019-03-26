@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Storage;
 
 class Media extends Model
 {
-    protected $fillable = ["base_url", "in_json", "type"];
+    protected $fillable = ["base_url", "in_json", "type", "user_id"];
 
     public static function boot()
     {
@@ -30,7 +30,7 @@ class Media extends Model
             return url('/img/profile.jpg');
         }
 
-        $url = $this->base_url . json_decode($this->in_json)->images->$type;
+        $url = $this->base_url . json_decode($this->in_json)->url->$type;
 
         return $url === '' ? url('/img/profile.jpg') : $url;
     }

@@ -25,8 +25,10 @@ class LaradashServiceProvider extends ServiceProvider
 
         $this->publishes([
             __DIR__ . '/Models' => app_path('Models'),
+            __DIR__ . '/Traits' => app_path('Traits'),
             __DIR__ . '/Http/Controllers' => app_path('Http/Controllers/'),
             __DIR__ . '/Http/Resources' => app_path('Http/Resources/'),
+            __DIR__ . '/Http/Requests' => app_path('Http/Requests/'),
         ]);
 
         $this->publishes([

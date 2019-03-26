@@ -22,9 +22,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        $post = $this->repository->orderBy('id', 'desc')->get();
+        $posts = $this->repository->orderBy('id', 'desc')->get();
 
-        return view('laradash.laradash..post.index', compact('post'));
+        return view('laradash.action.posts.index', compact('posts'));
     }
 
     /**
@@ -34,7 +34,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('laradash.action.post.create');
+        return view('laradash.action.posts.create');
     }
 
     /**
@@ -45,7 +45,11 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->merge(['slug' => str_slug(request('title'), '-')]);
+        $post = $this->repository->create($request->all());
+        $post->addCategory($request->categories);
+        $post->addTag($request->tags);
+        return redirect()->back()->with('success', 'Data has been added successfully');
     }
 
     /**
@@ -67,7 +71,9 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = $this->repository->with('category')
+            ->with('tag')->findOrFail($id);
+        return view('laradash.action.posts.create', compact('post'));
     }
 
     /**
@@ -90,6 +96,10 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = $this->repository->findOrFail($id);
+        $post->category()->delete();
+        $post->tag()->delete();
+        $post->delete();
+        return redirect()->back()->with("success", "Post has  been deleted.");
     }
 }

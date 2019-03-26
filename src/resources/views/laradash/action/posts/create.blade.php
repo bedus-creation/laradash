@@ -1,4 +1,6 @@
 @extends('laradash.theme.app')
+@include('laradash.utils.success-error')
+
 
 @section('head')
 <link rel="stylesheet" href="{{url('/laradash/plugin/fileupload/fileupload-1.1.css')}}">
@@ -10,13 +12,14 @@
 @section('content')
 <div class="container-fluid content">
     <div class="card">
+        @yield('success-error')
         <div class="card-header">
             <div class="card-title mb-0">
                 <span class="section-title">New Blog Form</span>
             </div>
         </div>
         <div class="card-body">
-            <form  method ="POST" action="{{url('action/posts')}}" >
+            <form  method ="POST" action="{{url(config('laradash.base_route').'/posts')}}" >
                 @csrf
                 <div class="row" >
                     <div class="col-md-10">
@@ -50,6 +53,7 @@
                             </label>
                             <div class="col-md-10">
                                 <div id="cover" class="w-100 btn btn-secondary">Set Cover Image</div>
+                                <div id="cover-image"></div>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -75,8 +79,8 @@
 @endsection
 
 @section('scripts')
-<script src="/plugin/select2/select2.js"></script>
-<script src="/plugin/fileupload/fileupload-1.1.js"></script>
+<script src="{{url('laradash/plugin/select2/select2.js')}}"></script>
+<script src="{{url('laradash/plugin/fileupload/fileupload-1.1.js')}}"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.js"></script>
 <script>
@@ -87,8 +91,8 @@
     });
 
 $('#cover').fileupload({
-    serverUploadUrl:'{{url('medias')}}',
-    serverAllFileUrl:'{{url('medias')}}'
+    serverUploadUrl:'{{url('admin/medias')}}',
+    serverAllFileUrl:'{{url('admin/medias')}}'
 });
 
 $('#tags-input').select2({
@@ -134,7 +138,5 @@ $('#categories-input').select2({
     },
     tags:true
 });
-</script>
-
 </script>
 @endsection

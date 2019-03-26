@@ -19,6 +19,10 @@ class CreatePostsTable extends Migration
             $table->string('slug');
             $table->string('title');
             $table->longText('body');
+            $table->unsignedInteger("views")->default(0);
+            $table->unsignedInteger("user_id");
+            $table->unsignedInteger('media_id')->nullable();
+            $table->enum('status', ['draft', 'published'])->default('published');
             $table->softDeletes();
         });
     }
