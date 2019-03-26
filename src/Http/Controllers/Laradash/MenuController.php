@@ -2,19 +2,11 @@
 
 namespace App\Http\Controllers\Laradash;
 
-use App\Models\Laradash\Post;
+use App\Menu;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
-
-class PostController extends Controller
+class MenuController extends Controller
 {
-    protected $repository;
-
-    public function __construct(Post $repository)
-    {
-        $this->repository = $repository;
-    }
     /**
      * Display a listing of the resource.
      *
@@ -22,9 +14,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $post = $this->repository->orderBy('id', 'desc')->get();
-
-        return view('laradash.laradash..post.index', compact('post'));
+        //
     }
 
     /**
@@ -34,7 +24,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('laradash.action.post.create');
+        //
     }
 
     /**
@@ -51,10 +41,10 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Post  $post
+     * @param  \App\Menu  $menu
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Menu $menu)
     {
         //
     }
@@ -62,10 +52,10 @@ class PostController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Post  $post
+     * @param  \App\Menu  $menu
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Menu $menu)
     {
         //
     }
@@ -74,10 +64,10 @@ class PostController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Post  $post
+     * @param  \App\Menu  $menu
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Menu $menu)
     {
         //
     }
@@ -85,10 +75,10 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Post  $post
+     * @param  \App\Menu  $menu
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Menu $menu)
     {
         //
     }

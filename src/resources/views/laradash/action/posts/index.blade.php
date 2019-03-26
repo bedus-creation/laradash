@@ -1,0 +1,1 @@
+@extends('laradash.theme.app')

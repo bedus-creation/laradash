@@ -1,4 +1,4 @@
-@extends('theme.app')
+@extends('laradash.theme.app')
 
 @section('head')
 <link rel="stylesheet" href="{{url('/laradash/plugin/fileupload/fileupload-1.1.css')}}">

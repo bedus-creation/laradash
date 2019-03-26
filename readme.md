@@ -6,7 +6,7 @@ composer require aammui/laradash:dev-master
 
 # publish the Config file
 ```
-php artisan vendor:publish --provider="Aammui\Laradash\LaradashServiceProvider"
+php artisan vendor:publish --provider="Aammui\Laradash\LaradashServiceProvider" --force
 ```
 
 # Screenshot
