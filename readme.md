@@ -1,16 +1,28 @@
-# Install 
+![ScreenShot](https://raw.githubusercontent.com/bedus-creation/laradash/master/docs/screenshot.png)
 
+
+# Install 
 ```
 composer require aammui/laradash:dev-master
 ```
-
 # publish the Config file
 ```
 php artisan vendor:publish --provider="Aammui\Laradash\LaradashServiceProvider" --force
 ```
 
-# Screenshot
-![ScreenShot](https://raw.githubusercontent.com/bedus-creation/laradash/master/docs/screenshot.png)
+## Add Route to Routes List
+```
+use Aammui\Laradash\Facade\Laradash;
+
+Laradash::route();
+```
+
+## Routes List
+```
+php artisan route:list
+```
+
+
 
 # Inside Project
 
@@ -178,14 +190,3 @@ $('#tags-input').select2({
 });
 ```
 
-## Add Route to Routes List
-```
-use Aammui\Laradash\Facade\Laradash;
-
-Laradash::route();
-```
-
-## Routes List
-```
-php artisan route:list
-```
