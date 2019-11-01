@@ -14,6 +14,7 @@ class LaradashServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->loadRoutesFrom(__DIR__ . '/routes/routes.php');
         $this->publishes([
             __DIR__ . '/config/laradash.php' => config_path('laradash.php'),
             __DIR__ . '/database' => database_path('migrations'),

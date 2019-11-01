@@ -9,7 +9,7 @@
     ],
     "license": "MIT",
     "require": {
-        "laravel/socialite": "^3.1",
+        "laravel/socialite": "^4.2",
         "intervention/image": "^2.4"
     },
     "require-dev": {
